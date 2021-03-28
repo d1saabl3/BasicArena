@@ -7,14 +7,10 @@ import cz.educanet.arena.logic.Gladiator;
 import java.util.Scanner;
 
 public class ArenaCLI {
-
     private Arena logic;
     private Scanner sc;
 
-    /**
-     * Initialize all variables that are needed.
-     */
-    public void init() {
+    public void initialize() {
         logic = new Arena();
         sc = new Scanner(System.in);
     }
@@ -40,12 +36,26 @@ public class ArenaCLI {
         logic.setGladiator2(gladiator2);
     }
 
-    /**
-     * Fight until one gladiator dies, or surrenders.
-     */
     public void renderEntireFight() {
-        // TODO:
-        // while(...) {logic.fight.... sout...}
-    }
+        while (logic.getWinner() == null) {
+            Gladiator gladiator1 = logic.getGladiator1();
+            Gladiator gladiator2 = logic.getGladiator2();
 
+            int round = logic.getRound();
+
+            System.out.println();
+            System.out.println("---" + round + ". KOLO ---");
+            System.out.println();
+
+            System.out.println("---ZIVOTY NASICH GLADIATORU---");
+            System.out.println(gladiator1.getName() + " ma " + gladiator1.getHP() + "/" + gladiator1.getFullHP());
+            System.out.println(gladiator2.getName() + " ma " + gladiator2.getHP() + "/" + gladiator2.getFullHP());
+            logic.fight();
+
+        }
+        Gladiator winner = logic.getWinner();
+        System.out.println("---------------------");
+        System.out.println(winner.getName() + " prave vyhral souboj ! GG");
+        System.out.println("---------------------");
+    }
 }

@@ -2,28 +2,26 @@ package cz.educanet.arena.data;
 
 import cz.educanet.arena.logic.Gladiator;
 
-/**
- * Utils class that saves and loads gladiators.
- */
+import java.io.*;
+
 public class GladiatorDatabase {
 
-    /**
-     * @param filename path to the gladiator file.
-     * @return loaded Gladiator
-     */
     public static Gladiator loadGladiator(String filename) {
-        // TODO:
-        throw new UnsupportedOperationException();
-    }
+        Gladiator gladiator = new Gladiator();
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(filename));
 
-    /**
-     * Saves the gladiator.
-     * @param filename path to save too.
-     * @param gladiator Gladiator to save.
-     */
-    public static void saveGladiator(String filename, Gladiator gladiator) {
-        // TODO:
-        throw new UnsupportedOperationException();
-    }
+            gladiator.setName(br.readLine());
+            gladiator.setFullHP(Integer.parseInt(br.readLine()));
+            gladiator.setMaximumDamage(Integer.parseInt(br.readLine()));
+            gladiator.setMinimalDamage(Integer.parseInt(br.readLine()));
 
+            br.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return gladiator;
+    }
 }
